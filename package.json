@@ -1,0 +1,12 @@
+{
+    "name": "coml",
+    "description": "COffescript Markup Language. Like haml but written entirely in valid coffeescript.",
+    "keywords": ["haml", "template"],
+    "homepage": "https://github.com/CRogers/coml",
+    "main" : "./lib/coml",
+    "bin": {
+        "haml-js": "./lib/cli.js"
+    },
+    "author": "Callum Rogers <callumrogers@hotmail.co.uk>",
+    "version": "0.0.1"
+}
