@@ -1,3 +1,11 @@
+root = exports ? this
+
+for key, value of require('../lib/coml')
+	root[key] = value
+
+console.log root
+console.log coml
+
 coml ->
 	html ->
 		head ->
