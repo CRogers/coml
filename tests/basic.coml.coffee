@@ -1,12 +1,11 @@
-root = exports ? this
+Coml = require('../lib/coml').Coml
 
-for key, value of require('../lib/coml')
-	root[key] = value
+root["a"] = -> console.log 'hi'
+a()
 
-console.log root
-console.log coml
 
-coml ->
+
+console.log new Coml(root).parse ->
 	html ->
 		head ->
 			title -> 'Testestest'
