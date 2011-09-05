@@ -9,14 +9,11 @@ tags = ['a','abbr','acronym','address','applet','area','article','aside','audio'
 
 class Stream
 	constructor: ->
-		@stream = new Array(1000)
-		@size = 0
+		@stream = ""
 	append: (data) ->
 		console.log "data: #{data}"
-		@stream[@size+i] = data[i] for i in [0...data.length]
-		@size += data.length
-	get: -> 
-		@stream.join ''
+		@stream += data
+	get: -> @stream
 	reset: -> @stream = new Array(1000)
 
 
@@ -38,19 +35,14 @@ exports.Coml = Coml
 k = 0
 
 mkfunc = (name, out) ->
-	(args...) ->
+	(f) ->
 		console.log name
 		attrs = {}
 		out.append "<#{name}>"
 		
 		console.log out.get()
-		lastarg = args[0]
-		
-		if typeof lastarg is 'function'
-			console.log k++
-			out.append lastarg() + "</#{name}>"
-		else
-			error "Last arg must be function"
+		console.log k++
+		out.append f() + "</#{name}>"
 
 
 error = (msg) ->
