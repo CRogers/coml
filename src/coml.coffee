@@ -9,14 +9,15 @@ tags = ['a','abbr','acronym','address','applet','area','article','aside','audio'
 
 class Stream
 	constructor: ->
-		@stream = {}
+		@stream = new Array(1000)
 		@size = 0
 	append: (data) ->
-		@stream[@size++] = data
-		console.log @stream
+		console.log "data: #{data}"
+		@stream[@size+i] = data[i] for i in [0...data.length]
+		@size += data.length
 	get: -> 
-		(@stream[i] for i in [0...@size]).join ''
-	reset: -> @stream = {}
+		@stream.join ''
+	reset: -> @stream = new Array(1000)
 
 
 class Coml
@@ -40,11 +41,7 @@ mkfunc = (name, out) ->
 	(args...) ->
 		console.log name
 		attrs = {}
-		out.append "<#{name}"
-		
-		for attr, val of attrs
-				out.append " #{attr}='#{value}'"
-		out.append '>'
+		out.append "<#{name}>"
 		
 		console.log out.get()
 		lastarg = args[0]
