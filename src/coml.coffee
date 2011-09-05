@@ -14,7 +14,7 @@ class Stream
 		console.log "data: #{data}"
 		@stream += data
 	get: -> @stream
-	reset: -> @stream = new Array(1000)
+	reset: -> @stream = ""
 
 
 class Coml
@@ -32,18 +32,17 @@ class Coml
 
 exports.Coml = Coml
 
-k = 0
-
 mkfunc = (name, out) ->
 	(f) ->
-		console.log name
 		attrs = {}
 		out.append "<#{name}>"
 		
-		console.log out.get()
-		console.log k++
-		out.append f() + "</#{name}>"
-
+		res = f()
+		console.log res
+		
+		if res
+			out.append res + "</#{name}>"
+		return
 
 error = (msg) ->
 	console.log "Error #{msg}"
