@@ -9,6 +9,11 @@ class Stream
 	reset: -> @stream = ""
 
 
+# Every time a new Coml object is created, we make all the tag functions, bind their output
+# to a stream contained within this specific object then shove all the functions into the
+# root object of the file/view so they can be used as barewords. This allows us to not use global
+# objects to calculate the result.
+
 class Coml
 	constructor: (par) ->
 		@out = new Stream();
@@ -25,11 +30,42 @@ class Coml
 exports.Coml = Coml
 
 mkfunc = (name, out) ->
-	(f) ->
+	(args...) ->
 		attrs = {}
-		out.append "<#{name}>"
+		out.append "<#{name}"
 		
-		res = f()
+		if args.length > 1
+			for i in [0..args.length-2]
+				arg = args[i]
+				switch typeof arg
+				
+					# .class#id type things
+					when 'string'
+						classname = (/\.([\w-]+)/.exec arg)[1]
+						if classname
+							attrs.class = classname
+
+						id = (/#([\w-]+)/.exec arg)[1]
+						if id
+							attrs.id = id
+					
+					# {further: 'attribute'} type things
+					when 'object'
+						for key, value of arg
+							attrs[key] = value
+
+			for attr, value of attrs
+				out.append " #{attr}='#{value}'"
+			
+		out.append '>'
+			
+		lastarg = args[args.length-1];
+		
+		if typeof lastarg isnt 'function'
+			error "Last argument of #{name} must be a function"
+			return
+		
+		res = lastarg()
 		
 		if typeof res is 'string'
 			out.append res
