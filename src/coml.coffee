@@ -34,6 +34,8 @@ mkfunc = (name, out) ->
 		attrs = {}
 		out.append "<#{name}"
 		
+		console.log args
+		
 		if args.length > 1
 			for i in [0..args.length-2]
 				arg = args[i]
@@ -41,13 +43,13 @@ mkfunc = (name, out) ->
 				
 					# .class#id type things
 					when 'string'
-						classname = (/\.([\w-]+)/.exec arg)[1]
+						classname = /\.([\w-]+)/.exec arg
 						if classname
-							attrs.class = classname
+							attrs.class = classname[1]
 
-						id = (/#([\w-]+)/.exec arg)[1]
+						id = /#([\w-]+)/.exec arg
 						if id
-							attrs.id = id
+							attrs.id = id[1]
 					
 					# {further: 'attribute'} type things
 					when 'object'
