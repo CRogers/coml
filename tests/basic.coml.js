@@ -5,21 +5,35 @@
     return html(function() {
       head(function() {
         return title(function() {
-          return 'Testestest';
+          return 'This is the title';
         });
       });
       return body(function() {
-        text("text test");
+        text('This will simply add some text');
         h1(function() {
-          return 'This is a test';
+          return 'All your favourite tags are included';
         });
         h2(function() {
-          return 'How in the hell are we going to solve this problem';
+          return 'The nesting is made using functions';
         });
-        return div('.class#id', {
-          more: 'attributes'
+        p(function() {
+          return span('.smalltext#id', function() {
+            return 'We can use HAML like syntax for class and ids';
+          });
+        });
+        div('.class#id', {
+          further: 'attributes',
+          are: 'added',
+          like: 'this'
         }, function() {
-          return 'Yes, now we can write html as valid coffeescript';
+          return 'Just remember those commas';
+        });
+        return div('.class', {
+          its: 'also worth noting',
+          coffescript: 'lets you use this',
+          syntax: 'for object and so attributes'
+        }, function() {
+          return 'And this text will be put inside the div';
         });
       });
     });
