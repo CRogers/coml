@@ -55,4 +55,3 @@ results in:
 	</body>
 </html>
 ```
-```
